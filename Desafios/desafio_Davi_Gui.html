@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recompensas e descontos</title>
+</head>      
+<body>
+    
+    <h1>Desafio: Sistema de Recompensas e Descontos</h1>
+
+    <div>
+        <label for="ipt_qtd_produtos">Quantidade de produtos comprados: </label>
+        <input id="ipt_qtd_produtos"></input>
+    </div>
+    <div>
+        <label for="ipt_valor_total">Digite o valor gasto: </label>
+        <input type="text" id="ipt_valor_total">
+    </div>
+    <div>
+        <label for="check_cliente_vip">Cliente VIP?</label>
+        <input type="checkbox" id="check_cliente_vip">
+    </div>
+    <button onclick="calcular()">Calcular</button>
+
+    <h3 id="h3_resposta"></h3>
+    <h3 id="h3_pontos"></h3>
+</body>
+<script>
+    function calcular(){
+        var produtos = Number(ipt_qtd_produtos.value);
+        var valor = Number(ipt_valor_total.value);
+        var vip = check_cliente_vip.checked;
+        var desconto = 0;
+        
+    
+       if(produtos > 10 && valor > 500 || vip){
+        desconto += 10;
+        var total = valor - ((valor / 100) * desconto);
+        
+
+        h3_resposta.innerHTML = `Parabéns, você recebeu um desconto de ${desconto}% 
+                                 <br>
+                                 Valor total: R$${total}`
+
+       }
+       
+       if(produtos > 10 && valor > 1000 && vip){
+        desconto += 15;
+
+        h3_resposta.innerHTML = `Parabéns, você recebeu um desconto de ${desconto}% 
+                                 <br>
+                                 Valor total: R$${total}`
+       }
+       if(produtos >= 6 && produtos <= 10 && valor > 200 || vip){
+        desconto += 5;
+        total = valor - ((valor / 100) * desconto);
+
+        h3_resposta.innerHTML = `Parabéns, você recebeu um desconto de ${desconto}% 
+                                 <br>
+                                 Valor total: R$${total}`
+       }
+       if(produtos <= 5 || produtos > 10 && valor < 200){
+        desconto = 0;
+        h3_resposta.innerHTML = `Infelizmente, você não recebeu desconto. 
+                                 <br>
+                                 Valor total: R$${valor}`
+       }
+
+       
+       
+
+       if(produtos > 5 && valor > 200 || vip){
+        
+        h3_pontos.innerHTML = `Parabéns, você recebeu 50 pontos!`
+
+        if(produtos > 10 && valor > 500){
+            
+            h3_pontos.innerHTML = `Parabéns, você recebeu 150 pontos!`
+        }
+
+        
+       }else{
+        h3_pontos.innerHTML = `Infelizmente, você não recebeu pontos.`
+       }
+
+    }
+</script>
+</html>
