@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 04</title>
+</head>
+<body>
+    <label for="ipt_filme">Digite os seus filmes favoritos em ordem: </label>
+    <input type="text" id="ipt_filme">
+    <button onclick="cadastrar()">Cadastrar filme</button>
+    <button onclick="favoritos()">Ver favoritos</button>
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let filmes = [];
+    let mensagem = '';
+
+    function cadastrar(){
+        let filme = ipt_filme.value;
+        filmes.push(filme);
+        alert(`Filme ${filme} cadastrado!`);
+    }
+
+    function favoritos(){
+        let total = filmes.length;
+        for(let i = 0; i < total; i++){
+            mensagem += `${filmes[i]} <br>`;
+        }
+        mensagem += `Total: ${total} <br>
+                     O filme que mais gosta é ${filmes[0]} <br>
+                     O filme que menos gosta é ${filmes[total - 1]}`;
+
+        div_mensagem.innerHTML = mensagem;             
+    }
+</script>
+</html>

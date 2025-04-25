@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 01</title>
+</head>
+<body>
+    <label for="ipt_frutaDigitada">Digite uma fruta: </label>
+    <input type="text" id="ipt_frutaDigitada">
+    <button onclick="pesquisar()">Pesquisar</button>
+
+    <div id="div_resultado"></div>
+</body>
+<script>
+    function pesquisar(){
+        let frutas = ['Melancia', 'Banana', 'Uva', 'Laranja'];
+        let frutaDigitada = ipt_frutaDigitada.value;
+        let resultado = '';
+       
+        for(let i = 0; i < frutas.length; i++){
+
+            if(frutas[i] == frutaDigitada){
+                resultado = `A fruta ${frutaDigitada} existe na lista`;
+                break;
+            }else {
+                resultado = `Não existe a fruta ${frutaDigitada} na lista`;
+                
+            }          
+
+        }
+        div_resultado.innerHTML = resultado;
+    }
+</script>
+</html>

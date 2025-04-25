@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 02</title>
+</head>
+
+<body>
+    <label for="ipt_viagem">Destino de viagem: </label>
+    <input type="text" id="ipt_viagem">
+    <button onclick="adicionar()">Adicionar</button>
+    <br>
+    <button onclick="primeiraViagem()">Primeira viagem</button>
+    <button onclick="terceiraViagem()">Terceira viagem</button>
+    <button onclick="ultimaViagem()">Última viagem</button>
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let destino = [];
+    let mensagem = '';
+
+    function adicionar() {
+        let viagem = ipt_viagem.value;
+
+        destino.push(viagem);
+        alert("Destino adicionado!");
+
+    }
+
+    function primeiraViagem() {
+
+        if(destino.length >= 1){
+            mensagem = destino[0];
+        }else{
+            mensagem = 'Ainda não viajou';
+        }
+
+        div_mensagem.innerHTML = mensagem;
+        
+    }
+
+    function terceiraViagem() {
+
+        if(destino.length >= 3){
+            mensagem = destino[2];
+        }else{
+            mensagem = 'Ainda não fez a terceira viagem';
+        }
+        div_mensagem.innerHTML = mensagem;
+    }
+
+    function ultimaViagem() {
+        if(destino.length >= 1){
+            mensagem = destino[destino.length - 1];
+        }else {
+            mensagem = 'Ainda não viajou';
+        }
+
+        div_mensagem.innerHTML = mensagem;
+    }
+
+    
+
+
+</script>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 07</title>
+</head>
+<body>
+    <label for="ipt_filme">Insira os seus filmes favoritos (1 por vez): </label>
+    <input type="text" id="ipt_filme">
+    <button onclick="cadastrar()">Cadastrar</button>
+
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let filmes = [];
+    function cadastrar(){
+        let filmeDigitado = ipt_filme.value;
+        filmes.push(filmeDigitado);
+        let mensagem = '';
+
+        for(let i = 0; i < filmes.length; i++){
+
+            if((i + 1) % 2 != 0){
+                mensagem += `<p style="color: blue;">${i + 1}º filme: ${filmes[i]}</p>`;
+            }else {
+                mensagem += `<p style="color: red;">${i + 1}º filme: ${filmes[i]}</p>`;
+            }
+            
+
+        }
+        div_mensagem.innerHTML = mensagem;
+
+    }
+
+
+</script>
+</html>
