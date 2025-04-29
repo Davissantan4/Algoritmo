@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 10</title>
+</head>
+<body>
+    <div>
+        <label for="ipt_linha">Digite as linhas de ônibus que pegou durante a semana: </label>
+        <input type="text" id="ipt_linha">
+        <button onclick="gravar()">Gravar busão</button>
+    </div>
+    <div>
+        <label for="ipt_verLinha">Pesquisar por linhas que já tenha pego: </label>
+        <input type="text" id="ipt_verLinha">
+        <button onclick="pesquisar()">Pesquisar</button>
+    </div>
+    
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let linhas = [];
+    let mensagem = '';
+    function gravar(){
+        let linha = ipt_linha.value;
+        linhas.push(linha);
+
+        for(let i = linhas.length - 1; i >= 0; i--){
+            mensagem += `${i + 1}ª Linha: ${linhas[i]} <br>`;
+
+        }
+
+        div_mensagem.innerHTML = mensagem;
+    }
+
+    function pesquisar(){
+        let verLinha = ipt_verLinha.value;
+        let repeticao = 0;
+
+        for(let i = 0;)
+
+    }
+
+</script>
+</html>
