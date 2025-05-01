@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 14</title>
+</head>
+<body>
+    <label for="ipt_numero">Digite um número qualquer: </label>
+    <input type="number" id="ipt_numero">
+    <button onclick="analisar()">Analisar histórico</button>
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let numeros = [];
+    function analisar(){
+        let numero = Number(ipt_numero.value);
+        numeros.push(numero);
+        let mensagem = '';
+        let maior = 0;
+        let menor = 0;
+
+        for(let i = 0; i < numeros.length; i++){
+            mensagem += `${i + 1}º Número: ${numeros[i]} <br>`;
+
+            
+
+        }
+        div_mensagem.innerHTML = mensagem;
+    }
+</script>
+</html>

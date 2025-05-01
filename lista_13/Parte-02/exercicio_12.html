@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 12</title>
+</head>
+<body>
+    <label for="ipt_filho">Digite o nome de um dos seus filhos: </label>
+    <input type="text" id="ipt_filho">
+    <button onclick="cadastrar()">Cadastrar</button>
+    <button onclick="atualizar()">Atualizar Família</button>
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let filhos = [];
+    function cadastrar(){
+        let filho = ipt_filho.value;
+        filhos.push(filho);
+        let repetidos = '';
+
+        for(let i = 0; i < filhos.length; i++){
+            if(filho == repetidos){
+                alert("Não pode mais de 1 filho com o mesmo nome!");
+                filhos.pop();
+            }
+
+            repetidos = filhos[i];
+        }
+    }
+
+    function atualizar(){
+        let escolaPublica = filhos.length * 1500;
+        let escolaParticular = filhos.length * 3000;
+
+        div_mensagem.innerHTML = `Você tem ${filhos.length} filhos <br>
+                                     Seu custo mensal será aproximadamente R$${escolaParticular} se colocá-los em escola particular ou R$${escolaPublica} se eles estudarem em escola pública `;
+    }
+</script>
+</html>

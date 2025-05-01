@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex 13</title>
+</head>
+<body>
+    <label for="sel_resultado">Indique o resultado: </label>
+    <select  id="sel_resultado">
+        <option value="vitoria">Vitória</option>
+        <option value="empate">Empate</option>
+        <option value="derrota">Derrota</option>
+    </select>
+
+    <label for="ipt_jogo">Indique qual jogo deseja saber o resultado: </label>
+    <input type="number" id="ipt_jogo">
+    <button onclick="ver()">Ver Resultado</button>
+    <br>
+    <button onclick="registrar()">Registrar Jogo</button>
+
+    <div id="div_resultado"></div>
+    <div id="div_ver"></div>
+</body>
+<script>
+    let jogos = [];
+    function registrar(){
+        let resultado = sel_resultado.value;
+        jogos.push(resultado);
+        let mensagem = '';
+        let vitorias = 0;
+        let empates = 0;
+        let derrotas = 0;
+        let pontos = 0;
+
+        for(let i = 0; i < jogos.length; i++){
+            if(jogos[i] == "vitoria"){
+                vitorias++;
+                pontos += 3;
+            }else if(jogos[i] == "empate"){
+                empates++;
+                pontos += 1;
+            }else {
+                derrotas++;
+            }
+
+            let aproveitamento = ((pontos / (jogos.length * 3)) * 100).toFixed();
+
+
+            mensagem = `O time teve: ${vitorias} vitórias, ${empates} empates, ${derrotas} derrotas <br>
+                        Pontuação total: ${pontos} <br>
+                        Aproveitamento: ${aproveitamento}% <br>`;       
+        }
+
+        div_resultado.innerHTML = mensagem;
+    }
+
+    function ver(){
+        let jogo = Number(ipt_jogo.value);
+        let mensagem = '';
+
+        for(let i = 0; i < jogos.length; i++){
+            if(jogo > jogos.length || jogo <= 0){
+                mensagem = `Não foi cadastrado um ${jogo}º jogo`;
+            }else {
+                if(jogos[jogo - 1] == "vitoria"){
+                    mensagem =  `No ${jogo}º jogo, o time Ganhou`;
+                }else if(jogos[jogo - 1] == "empate"){
+                    mensagem =  `No ${jogo}º jogo, o time Empatou`;
+                }else {
+                    mensagem =  `No ${jogo}º jogo, o time Perdeu`;
+                }
+               
+            }
+            
+        }
+        div_ver.innerHTML = mensagem;
+    }
+</script>
+</html>
