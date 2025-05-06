@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+</head>
+<body>
+    <h1>Desafio - Controle de Estoque</h1>
+
+    <div>
+        <label for="ipt_nome">Digite o nome do produto: </label>
+        <input type="text" id="ipt_nome">
+    </div>
+    <div>
+        <label for="ipt_codigo">Digite o código do produto: </label>
+        <input id="ipt_codigo"></input>
+    </div>
+    <div>
+        <label for="ipt_quantidade">Insira a quantidade do produto: </label>
+        <input type="number" id="ipt_quantidade">
+    </div>
+    <button onclick="cadastrar()">Cadastrar Produto</button>
+    <button onclick="repor()">Repor Estoque</button>
+    <button onclick="vender()">Vender Produto</button>
+    <button onclick="exibir()">Exibir Relatório</button>
+
+    <div id="div_relatorio"></div>
+</body>
+<script>
+    let nomes = [];
+    let codigos = [];
+    let quantidades = [];
+
+    function cadastrar() {
+        let nome = ipt_nome.value;
+        let codigo = ipt_codigo.value;
+        let quantidade = Number(ipt_quantidade.value);
+
+        if(nome == "" || codigo == "" || quantidade == "") {
+            alert('Preencha todos os campos para registrar um novo produto');
+        }else if(quantidade < 10){
+            alert('Quantidade inválida (mínimo 10)');
+        }else {
+            for(let i = 0; i < nomes.length; i++){
+                if(codigo == codigos[i]){
+                    alert('Código de produto já existe');
+                    return;
+                }
+            }
+
+            nomes.push(nome);
+            codigos.push(codigo);
+            quantidades.push(quantidade);
+
+            alert(`Produto ${nome} registrado com sucesso`);
+        }
+        console.log(nomes);
+        console.log(codigos);
+        console.log(quantidades);
+    }
+
+    function repor() {
+        let nome = ipt_nome.value;
+        let codigo = ipt_codigo.value;
+        let quantidade = Number(ipt_quantidade.value);
+        let existe = false;
+        let situacao = "OK";
+
+        if(nome == "" || codigo == "" || quantidade == "") {
+            alert('Preencha todos os campos para repor um produto');
+        }else if(quantidade <= 0) {
+            alert('Quantidade inválida');
+        } else {
+            for(let i = 0; i < nomes.length; i++){
+                if(nome == nomes[i] && codigo == codigos[i]){
+                    existe = true;
+                    quantidades[i] += quantidade;
+                    alert(`${quantidade}x do ${nome} foi reposto com sucesso`);
+
+                    if(quantidades[i] < 10){
+                        situacao = "Precisa Repor";
+                    }
+
+                    alert(`Código: ${codigo} | Produto: ${nome} | Quantidade em Estoque: ${quantidades[i]} (${situacao})`);
+                    break;
+                }
+            }
+
+            if(!existe) {
+                alert('Produto não identificado');
+            }
+        }
+    }
+
+    function vender() {
+        let nome = ipt_nome.value;
+        let codigo = ipt_codigo.value;
+        let quantidade = Number(ipt_quantidade.value);
+        let existe = false;
+        let situacao = "";
+
+        if(nome == "" || codigo == "" || quantidade == "") {
+            alert('Preencha todos os campos para vender um produto');
+        } else {
+            for(let i = 0; i < nomes.length; i++){
+                if(nome == nomes[i] && codigo == codigos[i]){
+                    existe = true;
+
+                    if(quantidade > quantidades[i] || quantidade <= 0){
+                        alert('Quantidade inválida');
+                        return;
+                    }
+
+                    quantidades[i] -= quantidade;
+                    alert(`${quantidade}x do ${nome} foi vendido com sucesso`);
+                    
+                    if(quantidades[i] < 10){
+                        alert(`O Produto ${nome} precisa de reposição`);
+                        situacao = "Precisa Repor";
+                    }else {
+                        situacao = "OK";
+                    }
+
+                    alert(`Código: ${codigo} | Produto: ${nome} | Quantidade em Estoque: ${quantidades[i]} (${situacao})`);
+                    break;
+                }
+            }
+            if(!existe){
+                alert('Produto não identificado');
+            }
+        }
+    }
+
+    function exibir() {
+        let qtdTotal = 0;
+        let relatorio = '';
+        let situacao = "";
+
+        for(let i = 0; i < nomes.length; i++){
+            if(quantidades[i] < 10){
+                situacao = "Precisa Repor";
+            } else {
+                situacao = "OK";
+            }
+
+            relatorio += `Registro ${i + 1} - Código: ${codigos[i]} | Produto: ${nomes[i]} | Quantidade em Estoque: ${quantidades[i]} (${situacao}) <br>`;
+            
+            qtdTotal += quantidades[i];
+        }
+
+        div_relatorio.innerHTML = `${relatorio} <br>
+                         Seu estoque tem ${qtdTotal} produtos registrados`;
+    }
+</script>
+</html>
