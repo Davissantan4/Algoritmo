@@ -31,6 +31,7 @@
     let nomes = [];
     let codigos = [];
     let quantidades = [];
+    let vendas = [];
 
     function cadastrar() {
         let nome = ipt_nome.value;
@@ -52,6 +53,7 @@
             nomes.push(nome);
             codigos.push(codigo);
             quantidades.push(quantidade);
+            vendas.push(0);
 
             alert(`Produto ${nome} registrado com sucesso`);
         }
@@ -112,6 +114,7 @@
 
                     quantidades[i] -= quantidade;
                     alert(`${quantidade}x do ${nome} foi vendido com sucesso`);
+                    vendas[i]++;
                     
                     if(quantidades[i] < 10){
                         alert(`O Produto ${nome} precisa de reposição`);
@@ -132,10 +135,37 @@
 
     function exibir() {
         let qtdTotal = 0;
+        let maiorQtd = quantidades[0];
+        let maior = nomes[0];
+        let maisVendido = vendas[0];
+        let mais = nomes[0];
+        let menosVendido = vendas[0];
+        let menos = nomes[0];
+        let menorQtd = quantidades[0];
+        let menor = nomes[0];
         let relatorio = '';
         let situacao = "";
+        let extra = '';
 
         for(let i = 0; i < nomes.length; i++){
+
+            if(quantidades[i] > maiorQtd){
+                maiorQtd = quantidades[i];
+                maior = nomes[i];
+            }
+            if(quantidades[i] < menorQtd){
+                menorQtd = quantidades[i];
+                menor = nomes[i];
+            }
+            if(vendas[i] > maisVendido){
+                maisVendido = vendas[i];
+                mais = nomes[i];
+            }
+            if(vendas[i] < menosVendido){
+                menosVendido = vendas[i];
+                menos = nomes[i];
+            }
+
             if(quantidades[i] < 10){
                 situacao = "Precisa Repor";
             } else {
@@ -143,12 +173,18 @@
             }
 
             relatorio += `Registro ${i + 1} - Código: ${codigos[i]} | Produto: ${nomes[i]} | Quantidade em Estoque: ${quantidades[i]} (${situacao}) <br>`;
+
+            extra = `Produto com maior quantidade: ${maior} <br>
+                     Produto com menor quantidade: ${menor} <br>
+                     Produto mais vendido: ${mais} <br>
+                     Produto menos vendido: ${menos}`;
             
             qtdTotal += quantidades[i];
         }
 
         div_relatorio.innerHTML = `${relatorio} <br>
-                         Seu estoque tem ${qtdTotal} produtos registrados`;
+                                   Seu estoque tem ${qtdTotal} produtos registrados <br>
+                                   ${extra}`;
     }
 </script>
 </html>
