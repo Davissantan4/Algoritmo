@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Vetor - One Piece</title>
+</head>
+<body>
+    <h1>CRUD do Sanji</h1>
+
+    <div>
+        <label for="ipt_comida">Cadastrar Estoque de Comidas: </label>
+        <input type="text" id="ipt_comida">
+        <button onclick="cadastrar()">Cadastrar</button>
+        <button onclick="verificar()">Verificar Quantidade</button>
+    </div>
+    <br>
+    <div>
+        <label for="ipt_pesquisar">Digite o nome de uma comida: </label>
+        <input type="text" id="ipt_pesquisar">
+        <button onclick="pesquisar()">Pesquisar</button>
+        <button onclick="exibir()">Exibir Estoque</button>
+    </div>
+
+    <div id="div_mensagem"></div>
+</body>
+<script>
+    let comidas = [];
+    function cadastrar(){
+        let comida = ipt_comida.value;
+        comidas.push(comida);
+
+        console.log(comidas);
+    }
+
+    function verificar(){
+        let estoque = comidas.length;
+        let mensagem = '';
+
+        if(estoque < 3){
+            mensagem = 'Desse jeito, o Luffy devora até o navio';
+        }else if(estoque <= 7){
+            mensagem = 'O comilão do Luffy não vai deixar sobrar nenhuma comida';
+        }else if(estoque <=10){
+            mensagem = 'Assim, talvez sobre um pouco para a tripulação';
+        }else {
+            mensagem = 'Desse jeito vai ter comida para todo mundo e ainda consigo guardar um pouco para a senhorita Nami!';
+        }
+
+        div_mensagem.innerHTML = mensagem;
+    }
+
+    function pesquisar(){
+        let pesquisarComida = ipt_pesquisar.value;
+        let unidades = 0;
+        let mensagem = '';
+        let existe = false;
+
+        for(let i = 0; i < comidas.length; i++){
+            if(pesquisarComida == comidas[i]){
+                existe = true;
+                unidades++;
+                mensagem = `Temos a comida ${pesquisarComida} e há ${unidades} unidade(s) dela`;
+            }
+        }
+        if(!existe){
+            mensagem = `Alguém vai ter que comprar ${pesquisarComida}, tá fazendo falta...`;
+        }
+
+        div_mensagem.innerHTML = mensagem;
+    }
+
+    function exibir(){
+        let listaComidas = [];
+        let unidades = [];
+        let mensagem = '';
+
+        for(let i = 0; i < comidas.length; i++){
+            let repete = false;
+
+            for(let j = 0; j < listaComidas.length; j++){
+                if(comidas[i] == listaComidas[j]){
+                    repete = true;
+                    unidades[j]++;
+                    mensagem = `${comidas[i]} (${unidades[j]} unidades) <br>`;
+
+                }
+                
+            }
+            if(!repete){
+                listaComidas.push(comidas[i]);
+                unidades.push(1);
+            }
+
+        }
+        div_mensagem.innerHTML = mensagem;
+        console.log(listaComidas);
+        console.log(unidades);
+    }
+</script>
+</html>
